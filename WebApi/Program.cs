@@ -19,6 +19,7 @@ public class Program {
             try {
                 var context = services.GetRequiredService<MarketDbContext>();
                 await context.Database.MigrateAsync();
+                await MarketDbContextData.LoadDataAsync(context, loggerFactory);
             } catch (Exception e) {
                 var logger = loggerFactory.CreateLogger<Program>();
                 logger.LogError(e, "Errores en el proceso de migracion");

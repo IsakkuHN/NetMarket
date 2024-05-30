@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessLogic.Data.Migrations
 {
     [DbContext(typeof(MarketDbContext))]
-    [Migration("20240530174626_InitialMigration")]
+    [Migration("20240530215428_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
