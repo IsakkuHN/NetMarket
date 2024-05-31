@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebApi.Dtos;
 
 namespace WebApi {
     public class Startup {
@@ -20,6 +21,10 @@ namespace WebApi {
         }
 
         public void ConfigureServices(IServiceCollection services) {
+
+            services.AddAutoMapper(typeof(MappingProfiles));
+
+            services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
 
             services.AddDbContext<MarketDbContext>( opt => {
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));

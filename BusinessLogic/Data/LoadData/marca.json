@@ -1,20 +1,20 @@
 [
   {
-    "Nombre": "Nike"
+    "Name": "Nike"
   },
   {
-    "Nombre": "Adidas"
+    "Name": "Adidas"
   },
-  {
-    "Nombre": "Reebok"
-  },
-  {
-    "Nombre": "Baltazar"
-  },
-  {
-    "Nombre": "Dior"
-  },
-  {
-    "Nombre": "Gucci"
-  }
+    {
+        "Name": "Reebok"
+    },
+    {
+        "Name": "Baltazar"
+    },
+    {
+        "Name": "Dior"
+    },
+    {
+        "Name": "Gucci"
+    }
 ]
