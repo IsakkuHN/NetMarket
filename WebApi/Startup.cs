@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApi.Dtos;
+using WebApi.HealthChecks;
+using WebApi.Middleware;
 
 namespace WebApi {
     public class Startup {
@@ -32,6 +34,12 @@ namespace WebApi {
 
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddControllers();
+
+            //HealthChecks 
+
+            services.AddHealthChecks()
+                .AddCheck<ExampleHealthCheck>("example_health_check");
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -39,11 +47,16 @@ namespace WebApi {
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware<ExceptionMiddleware>();
+
+            app.UseStatusCodePagesWithReExecute("/errors", "?code={0}");
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => { 
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
             });
         }
     }

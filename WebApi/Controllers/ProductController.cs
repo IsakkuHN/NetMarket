@@ -8,11 +8,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Dtos;
+using WebApi.ErrorHandling;
 
 namespace WebApi.Controllers {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductController : ControllerBase {
+    public class ProductController : BaseApiController {
 
         private readonly IGenericRepository<Product> _productRepository;
 
@@ -39,6 +38,10 @@ namespace WebApi.Controllers {
             //las entidades, la relacion entre Producto y Marca, Categoria 
             var spec = new ProductWithCategoryAndBrandSpecification(id);
             var product = await _productRepository.GetByIdWithSpec(spec);
+
+            if(product == null) {
+                return NotFound(new CodeErrorResponse(404, "Product does not exists."));
+            }
 
             return _mapper.Map<Product, ProductDto>(product);
         }
